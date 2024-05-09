@@ -84,7 +84,7 @@ export async function POST(req: Request) {
       });
     }
 
-    return NextResponse.json({ message: 'OK', user: newUser });
+    return NextResponse.json({ message: 'OK', user: newUser }, {status: 200});
   }
 
   // UPDATE
@@ -101,7 +101,7 @@ export async function POST(req: Request) {
     //as clerk take care of upadating and managing the user that's why we are trying to find the user from database on the basis of clerk id
     const updatedUser = await updateUser(id, user);
 
-    return NextResponse.json({ message: 'OK', user: updatedUser });
+    return NextResponse.json({ message: 'OK', user: updatedUser }, {status: 200});
   }
 
   // DELETE
@@ -110,7 +110,7 @@ export async function POST(req: Request) {
 
     const deletedUser = await deleteUser(id!);
 
-    return NextResponse.json({ message: 'OK', user: deletedUser });
+    return NextResponse.json({ message: 'OK', user: deletedUser }, {status: 203} );
   }
 
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
