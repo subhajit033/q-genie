@@ -73,18 +73,22 @@ export async function POST(req: Request) {
     };
 
     //this is a webhook we will not use it , clerk call it automatically that;s why we are not using tyr catch because clerk will manage it
-    const newUser = await createUser(user);
+    try {
+      const newUser = await createUser(user);
 
-    // Set public metadata
-    if (newUser) {
-      await clerkClient.users.updateUserMetadata(id, {
-        publicMetadata: {
-          userId: newUser._id,
-        },
-      });
+      // Set public metadata
+      if (newUser) {
+        await clerkClient.users.updateUserMetadata(id, {
+          publicMetadata: {
+            userId: newUser._id,
+          },
+        });
+      }
+
+      return NextResponse.json({ message: 'OK', user: newUser }, { status: 200 });
+    } catch (e) {
+      return NextResponse.json({ status: false, error: e }, { status: 400 });
     }
-
-    return NextResponse.json({ message: 'OK', user: newUser }, {status: 200});
   }
 
   // UPDATE
@@ -99,18 +103,34 @@ export async function POST(req: Request) {
     };
 
     //as clerk take care of upadating and managing the user that's why we are trying to find the user from database on the basis of clerk id
-    const updatedUser = await updateUser(id, user);
-
-    return NextResponse.json({ message: 'OK', user: updatedUser }, {status: 200});
+    try {
+      const updatedUser = await updateUser(id, user);
+  
+      return NextResponse.json(
+        { message: 'OK', user: updatedUser },
+        { status: 200 }
+      );
+    } catch (e) {
+      return NextResponse.json({ status: false, error: e }, { status: 400 });
+      
+    }
   }
 
   // DELETE
   if (eventType === 'user.deleted') {
     const { id } = evt.data;
 
-    const deletedUser = await deleteUser(id!);
-
-    return NextResponse.json({ message: 'OK', user: deletedUser }, {status: 203} );
+    try {
+      const deletedUser = await deleteUser(id!);
+  
+      return NextResponse.json(
+        { message: 'OK', user: deletedUser },
+        { status: 203 }
+      );
+    } catch (e) {
+      return NextResponse.json({ status: false, error: e }, { status: 400 });
+      
+    }
   }
 
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
