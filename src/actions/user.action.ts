@@ -17,10 +17,13 @@ type CreateUserParams = {
 };
 
 const createUser = async (userD: CreateUserParams) => {
+  console.log('user craeted function run..');
   try {
     const newUser = await user.create({
       data: userD,
     });
+
+    console.log('user craeted function run end ...');
     return JSON.parse(JSON.stringify(newUser));
   } catch (error) {
     handleError(error);
