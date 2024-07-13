@@ -1,6 +1,6 @@
 'use server';
 import prisma from '@/lib/db';
-import { handleError } from '@/utils/errorHandler';
+import { handleError } from '@/shared/utils/errorHandler';
 
 //generally next js are single page application , so we want to update some route after performing some operation and we can we use
 //it anywhere after performing some operation, it will just revalidate that path

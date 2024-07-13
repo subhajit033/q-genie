@@ -1,9 +1,9 @@
-'use client'
+import Home from "@/modules/home/home";
 
-export default function Home() {
+export default function Page() {
   
   return (
     
-    <h1>Home</h1>
+    <Home />
   );
 }
