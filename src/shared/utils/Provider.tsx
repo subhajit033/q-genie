@@ -5,6 +5,7 @@ import {NextUIProvider} from '@nextui-org/react'
 import { useUser } from '@clerk/nextjs'
 import { usePathname } from 'next/navigation'
 import Sidebar from '../widgets/dashboard/sidebar/sidebar'
+import { Toaster } from 'react-hot-toast';
 
 export default function Providers({children}: { children: React.ReactNode }) {
   const {isLoaded} = useUser()
@@ -29,6 +30,7 @@ export default function Providers({children}: { children: React.ReactNode }) {
     ) : (
       <>{children}</>
     )}
+    <Toaster position='top-center' reverseOrder={false} />
     
   </NextUIProvider>
   )
