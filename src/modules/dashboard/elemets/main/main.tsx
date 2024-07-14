@@ -1,15 +1,18 @@
 import { ICONS } from '@/shared/utils/icons';
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
+import DashboardOverviewCard from '@/shared/components/cards/overviewcard';
+import SubscribersChart from '@/shared/components/charts/subscribercharts';
 import { useUser } from '@clerk/nextjs';
 
 const Main = () => {
-    const {user} = useUser();
+  const { user } = useUser();
+  const [copied, setCopied] = useState(false);
   return (
     <div className='p-5 w-full h-screen bg-[#f9fafb]'>
       <h1 className='text-2xl text-surface-900 font-medium'>
-        Hi {user?.fullName} 👋
+        {/* Hi {user?.fullName} 👋 */}
       </h1>
       <p className='opacity-[.7] text-sm pt-2'>
         Here&apos;s how your publication is doing
@@ -17,7 +20,7 @@ const Main = () => {
       <div className='w-full flex'>
         <div className='w-[65%] min-h-[88vh] pr-5'>
           <br />
-          <DashboardOverViewCard />
+          <DashboardOverviewCard />
           <br />
           <SubscribersChart />
         </div>
@@ -40,7 +43,7 @@ const Main = () => {
 
                 <div
                   className='w-full px-2 my-1 h-[38px] bg-transparent border rounded-lg relative flex items-center cursor-pointer'
-                  onClick={handleCopyClick}
+                  // onClick={handleCopyClick}
                 >
                   <small
                     className={`w-[70%] text-sm overflow-hidden overflow-ellipsis whitespace-nowrap copy-text ${

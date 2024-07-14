@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { useUser } from '@clerk/nextjs';
 import DashboardItems from './dashboarditems';
 import { ICONS } from '@/shared/utils/icons';
+import UserPlan from './userplan';
 const Sidebar = () => {
   const [bottomContent, setBottomContent] = useState<boolean>(false);
   const { user } = useUser();
@@ -14,7 +15,7 @@ const Sidebar = () => {
       </div>
       <div>
         <DashboardItems />
-        {/* <UserPlan /> */}
+        <UserPlan />
         <DashboardItems bottomContent={true} />
       </div>
     </div>

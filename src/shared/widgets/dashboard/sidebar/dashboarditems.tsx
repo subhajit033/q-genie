@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useRouteChange from '@/shared/hooks/useRouteChange';
 import { useClerk } from '@clerk/nextjs';
 import Link from 'next/link';
@@ -9,7 +9,12 @@ import { ICONS } from '@/shared/utils/icons';
 const DashboardItems = ({ bottomContent }: { bottomContent?: boolean }) => {
   const { user, signOut } = useClerk();
   const { activeRoute, setActiveRoute } = useRouteChange();
-  const pathname = usePathname();
+  const pathName = usePathname();
+  //link component will be clicked and usePath name will return a new link , and useEffect is dependede on pathname , so it will run
+  useEffect(() => {
+    setActiveRoute(pathName);
+  }, [pathName, setActiveRoute]);
+  
   return (
     <>
       {!bottomContent ? (
