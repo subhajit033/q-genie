@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { ICONS } from '@/shared/utils/icons';
 import { Button } from '@nextui-org/react';
 import Link from 'next/link';
@@ -12,12 +12,12 @@ const Main = () => {
   const { user } = useUser();
   const [copied, setCopied] = useState(false);
   const handleCopyClick = () => {
-    const smallText = document.querySelector(".copy-text") as HTMLElement;
+    const smallText = document.querySelector('.copy-text') as HTMLElement;
     if (smallText) {
       const textToCopy = smallText.innerText;
       navigator.clipboard.writeText(textToCopy).then(() => {
         setCopied(true);
-        toast.success("Copied");
+        toast.success('Copied');
         setTimeout(() => {
           setCopied(false);
         }, 2000);

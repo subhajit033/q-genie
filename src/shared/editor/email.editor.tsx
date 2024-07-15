@@ -7,13 +7,19 @@ import { useRouter } from 'next/navigation';
 import { Button } from '@nextui-org/react';
 import { saveEmail } from '@/actions/save.email';
 import toast from 'react-hot-toast';
+import { getEmailDetails } from '@/actions/get.email-details';
 
 const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const [jsonData, setJsonData] = useState<any | null>(DefaultJsonData);
   const { user } = useClerk();
   const emailEditorRef = useRef<EditorRef>(null);
   const router = useRouter();
+
+  useEffect(() => {
+    user && emailDetails();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
 
   const exportHtml = () => {
     const unlayer = emailEditorRef.current?.editor;
@@ -42,6 +48,7 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
           content: JSON.stringify(design),
           newsLetterOwnerId: user?.id as string,
         });
+        router.push('/dashboard/write')
         toast.success('Email saved sucessfully');
       });
     } catch (e: any) {
@@ -49,9 +56,26 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
     }
   };
 
+  const emailDetails = async () => {
+    try {
+      console.log('get email details run');
+      const res = await getEmailDetails({
+        title: subjectTitle,
+        newsLetterOwnerId: user?.id as string,
+      });
+      console.log(res);
+      if (res) {
+        setJsonData(res);
+        setLoading(false);
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
     <>
-      {(
+      {!loading && (
         <div className='w-full h-[90vh] relative'>
           <EmailEditor
             onReady={onReady}

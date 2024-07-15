@@ -27,7 +27,7 @@ const Write = () => {
   };
 
   useEffect(() => {
-    FindEmails();
+    user && FindEmails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
