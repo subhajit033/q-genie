@@ -9,7 +9,7 @@ const getEmails = async (newsLetterOwnerId: string)=>{
     try {
         await connectToDB();
         const emails = await Email.find({newsLetterOwnerId})
-        return emails;
+        return JSON.parse(JSON.stringify(emails));
     } catch (e:any) {
         throw new Error(e.message)
         

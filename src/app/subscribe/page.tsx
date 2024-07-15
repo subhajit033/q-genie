@@ -3,6 +3,7 @@
 import { subscribe } from "@/actions/add.subscribe";
 import { useSearchParams } from "next/navigation";
 import { FormEvent, useState } from "react";
+import {Spinner} from "@nextui-org/react";
 import toast from "react-hot-toast";
 
 const Page = () => {
@@ -21,7 +22,7 @@ const Page = () => {
         if (res.error) {
           toast.error(res.error);
         } else {
-          toast.success("You are successfully subscribed!");
+          toast.success("You have successfully subscribed!");
         }
       })
       .catch((error:any) => {
@@ -54,7 +55,7 @@ const Page = () => {
           disabled={loading}
           className="px-8 bg-blue-500 text-white font-bold py-4 rounded-r hover:bg-blue-600 focus:outline-none"
         >
-          Subscribe
+          {loading? <Spinner size="sm" />: 'Subscribe'}
         </button>
       </form>
     </div>
