@@ -10,10 +10,13 @@ import toast from 'react-hot-toast';
 import { getEmailDetails } from '@/actions/get.email-details';
 import { sendBulkEmails } from '@/actions/email.sender';
 import useSubscribersData from '../hooks/useSubscribersData';
+import { Spinner } from '@nextui-org/react';
 
 const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [jsonData, setJsonData] = useState<any | null>(DefaultJsonData);
+  const[isSending, setIsSending] = useState(false);
+  const[isSaved, setIsSaved] = useState(false);
   const { user } = useClerk();
   const emailEditorRef = useRef<EditorRef>(null);
   const router = useRouter();
@@ -31,13 +34,22 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
     unlayer?.exportHtml(async (emailData) => {
       //here design is the josn data and html is the actual html content
       const { design, html } = emailData;
+      toast(
+        "Sending email in bulk will take some time.\n\nPlease stay in the untill you get any confirmation.",
+        {
+          duration: 3000,
+        }
+      );
 
       try {
-        setIsLoading(true);
+        setIsSending(true);
         await sendBulkEmails(data, subjectTitle, html);
-        setIsLoading(false);
+        setIsSending(false);
+        toast.success('Email sent successfully!!')
       } catch (e) {
         console.log(e);
+        toast.error('Error in sending mails')
+        setIsSending(false);
       }
     });
   };
@@ -49,6 +61,7 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
 
   const saveDraft = async () => {
     const unlayer = emailEditorRef.current?.editor;
+    setIsSaved(true)
 
     try {
       unlayer?.exportHtml(async (data) => {
@@ -59,6 +72,7 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
           content: JSON.stringify(design),
           newsLetterOwnerId: user?.id as string,
         });
+        setIsSaved(false);
         router.push('/dashboard/write');
         toast.success('Email saved sucessfully');
       });
@@ -69,7 +83,7 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
 
   const emailDetails = async () => {
     try {
-      console.log('get email details run');
+      
       const res = await getEmailDetails({
         title: subjectTitle,
         newsLetterOwnerId: user?.id as string,
@@ -86,6 +100,9 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
 
   return (
     <>
+    {/* Email editor must load initially with the data  other wise if it is initially loading with empty data then then it will be empty,  set a state loading untill the data loading
+      successfully don't render the Email editor 
+    */}
       {!isLoading && (
         <div className='w-full h-[90vh] relative'>
           <EmailEditor
@@ -98,14 +115,14 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
               className='bg-transparent cursor-pointer flex items-center gap-1 text-black border border-[#00000048] text-lg rounded-lg'
               onClick={saveDraft}
             >
-              <span className='opacity-[.7]'>Save Draft</span>
+              {isSaved? <Spinner size='sm'/>: <span className='opacity-[.7]'>Save Draft</span>}
             </Button>
             <Button
               className='bg-[#000] text-white cursor-pointer flex items-center gap-1 border text-lg rounded-lg'
               onClick={handleSendEmail}
               disabled={loading}
             >
-              {!loading && isLoading ? <p>sending..</p> : <span>Send</span>}
+              {isSending ?<Spinner size='sm' /> : <span>Send</span>}
             </Button>
           </div>
         </div>

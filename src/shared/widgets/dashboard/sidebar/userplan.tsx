@@ -1,8 +1,11 @@
+'use client'
 import React from 'react'
 import { Slider } from '@nextui-org/react';
 import { ICONS } from '@/shared/utils/icons';
+import useSubscribersData from '@/shared/hooks/useSubscribersData';
 
 const UserPlan = () => {
+  const {data, loading} = useSubscribersData()
     return (
         <div className="w-full my-3 p-3 bg-[#FDF1F8] rounded hover:shadow-xl cursor-pointer">
           <div className="w-full flex items-center">
@@ -21,16 +24,16 @@ const UserPlan = () => {
           <Slider
             aria-label="Player progress"
             hideThumb={true}
-            defaultValue={1}
+            defaultValue={data?.length || 0}
             className="max-w-md"
           />
           <h6 className="text-[#831743]">
-            {/* {loading ? "..." : data?.length} of{" "}
-            {membershipData?.plan === "LAUNCH"
+            {loading ? "..." : data?.length} of{" "}
+            {/* {membershipData?.plan === "LAUNCH"
               ? "2500"
               : membershipData?.plan === "SCALE"
               ? "10,000"
-              : "1,00,000"}{" "} */}
+              : "1,00,000"}{" "}  */}
             added
           </h6>
         </div>

@@ -11,6 +11,7 @@ const useSubscribersAnalytics = () => {
 
   useEffect(() => {
     user && SubscribersAnalytics();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   const SubscribersAnalytics = async () => {

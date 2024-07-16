@@ -7,12 +7,16 @@ interface MailOptions {
   html: string;
   to?: string;
 }
+
+const username  =  process.env.EMAIL_USERNAME;
+const password = process.env.EMAIL_PASSWORD;
+console.log(username, password);
 const transporter = nodemailer.createTransport({
   service: 'gmail',
-  host: 'smtp.gmail.com',
+  
   auth: {
-    user: process.env.EMAIL_USERNAME,
-    pass: process.env.EMAIL_PASSWORD,
+    user: username,
+    pass: password,
   },
 });
 
@@ -31,9 +35,9 @@ export async function sendBulkEmails(
     try {
       mailOptions.to = subscriber?.email;
       await transporter.sendMail(mailOptions);
-      console.log(`Email sent to ${subscriber}`);
+      console.log(`Email sent to ${subscriber.email}`);
     } catch (error) {
-      console.error(`Failed to send email to ${subscriber}:`, error);
+      console.error(`Failed to send email to ${subscriber?.email}:`, error);
     }
   }
 }
