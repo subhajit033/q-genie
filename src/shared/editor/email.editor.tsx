@@ -92,8 +92,11 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
       if (res) {
         setJsonData(res);
         setIsLoading(false);
+      }else{
+        setIsLoading(false);
       }
     } catch (e) {
+      setIsLoading(false)
       console.log(e);
     }
   };
