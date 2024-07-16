@@ -1,6 +1,26 @@
+'use client'
 import React from 'react'
+import useSubscribersAnalytics from '@/shared/hooks/useSubscriberAnalytics';
+import { Spinner } from '@nextui-org/react';
+import { ICONS } from '@/shared/utils/icons';
 
 const DashboardOverviewCard = () => {
+  const {loading, subscribersData} = useSubscribersAnalytics();
+  const lastMonthSubs = !loading &&  subscribersData?.lastSixMonths?.[subscribersData?.lastSixMonths?.length - 1].count;
+  const previousLastMonthSubscribers =
+    !loading &&
+    subscribersData?.lastSixMonths[subscribersData?.lastSixMonths?.length - 2];
+
+  let comparePercentage = 0;
+
+  if (previousLastMonthSubscribers.count > 0) {
+    comparePercentage =
+      ((lastMonthSubs - previousLastMonthSubscribers) /
+        previousLastMonthSubscribers) *
+      100;
+  } else {
+    comparePercentage = 100;
+  }
     return (
         <div className="w-full xl:py-4 flex bg-white border rounded">
           {/* subscribers */}
@@ -8,11 +28,11 @@ const DashboardOverviewCard = () => {
             <h5 className="text-lg">Subscribers</h5>
             <div className="w-full flex items-center justify-between">
               <span className="font-medium pt-2">
-                {/* {loading ? "..." : 1} */}
+                {loading ? <Spinner size="sm" /> : lastMonthSubs}
               </span>
               <div className="h-[30px] flex p-2 items-center bg-[#DCFCE6] rounded-full">
-                {/* <span className="text-[#21C55D]">{ICONS.topArrow}</span>
-                <span className="text-sm pl-1">{comparePercentage}%</span> */}
+                <span className="text-[#21C55D]">{ICONS.topArrow}</span>
+                <span className="text-sm pl-1">{comparePercentage}%</span>
               </div>
             </div>
             <small className="block text-sm opacity-[.7] pt-2">

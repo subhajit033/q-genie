@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { Spinner } from '@nextui-org/react';
 import {
   LineChart,
   Line,
@@ -10,7 +10,7 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from 'recharts';
-import { getSubscribersAnalytics } from '@/actions/subscribers.analytics';
+
 import useSubscribersAnalytics from '@/shared/hooks/useSubscriberAnalytics';
 
 interface subscribersAnalyticsData{
@@ -22,9 +22,10 @@ const SubscribersChart = () => {
   const { subscribersData, loading } = useSubscribersAnalytics();
 
   const data: subscribersAnalyticsData[] = [];
+  
 
   subscribersData &&
-    subscribersData?.last7Months?.forEach((item: subscribersAnalyticsData) => {
+    subscribersData?.lastSixMonths?.forEach((item: subscribersAnalyticsData) => {
       data.push({
         month: item?.month,
         count: item?.count,
@@ -77,7 +78,9 @@ const SubscribersChart = () => {
       </div>
 
       {loading ? (
-        <h1>Loading...</h1>
+        <div className='w-full h-full flex justify-center items-center'>
+           <Spinner size="lg" />
+        </div>
       ) : (
         <ResponsiveContainer width='100%' height={'85%'} className={'mt-5'}>
           <LineChart

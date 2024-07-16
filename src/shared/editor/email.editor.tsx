@@ -8,26 +8,37 @@ import { Button } from '@nextui-org/react';
 import { saveEmail } from '@/actions/save.email';
 import toast from 'react-hot-toast';
 import { getEmailDetails } from '@/actions/get.email-details';
+import { sendBulkEmails } from '@/actions/email.sender';
+import useSubscribersData from '../hooks/useSubscribersData';
 
 const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
-  const [loading, setLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [jsonData, setJsonData] = useState<any | null>(DefaultJsonData);
   const { user } = useClerk();
   const emailEditorRef = useRef<EditorRef>(null);
   const router = useRouter();
+  const { data, loading } = useSubscribersData();
+  console.log(data);
 
   useEffect(() => {
     user && emailDetails();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
-  const exportHtml = () => {
+  const handleSendEmail = async () => {
     const unlayer = emailEditorRef.current?.editor;
 
-    unlayer?.exportHtml((data) => {
+    unlayer?.exportHtml(async (emailData) => {
       //here design is the josn data and html is the actual html content
-      const { design, html } = data;
-      console.log('exportHtml', html);
+      const { design, html } = emailData;
+
+      try {
+        setIsLoading(true);
+        await sendBulkEmails(data, subjectTitle, html);
+        setIsLoading(false);
+      } catch (e) {
+        console.log(e);
+      }
     });
   };
 
@@ -48,7 +59,7 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
           content: JSON.stringify(design),
           newsLetterOwnerId: user?.id as string,
         });
-        router.push('/dashboard/write')
+        router.push('/dashboard/write');
         toast.success('Email saved sucessfully');
       });
     } catch (e: any) {
@@ -66,7 +77,7 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
       console.log(res);
       if (res) {
         setJsonData(res);
-        setLoading(false);
+        setIsLoading(false);
       }
     } catch (e) {
       console.log(e);
@@ -75,7 +86,7 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
 
   return (
     <>
-      {!loading && (
+      {!isLoading && (
         <div className='w-full h-[90vh] relative'>
           <EmailEditor
             onReady={onReady}
@@ -91,9 +102,10 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
             </Button>
             <Button
               className='bg-[#000] text-white cursor-pointer flex items-center gap-1 border text-lg rounded-lg'
-              onClick={exportHtml}
+              onClick={handleSendEmail}
+              disabled={loading}
             >
-              <span>Send</span>
+              {!loading && isLoading ? <p>sending..</p> : <span>Send</span>}
             </Button>
           </div>
         </div>

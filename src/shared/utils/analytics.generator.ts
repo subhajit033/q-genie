@@ -14,7 +14,7 @@ export async function generateSimpleAnalytics<T extends Document>(
   // eslint-disable-next-line react-hooks/rules-of-hooks
  
 
-  for (let i = 0; i < 7; i++) {
+  for (let i = 0; i < 6; i++) {
     // Calculate start of the month
     const startDate = new Date(
       currentDate.getFullYear(),

@@ -16,6 +16,7 @@ const useSubscribersAnalytics = () => {
   const SubscribersAnalytics = async () => {
     await getSubscribersAnalytics(user?.id as string).then((res: any) => {
       setSubscribersData(res);
+      
       setLoading(false);
     });
   };
