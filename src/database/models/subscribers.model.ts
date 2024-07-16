@@ -12,9 +12,11 @@ const subscriberShema = new Schema(
     },
     source: {
       type: String,
+      default: 'By BuzzLetter website'
     },
     status: {
       type: String,
+      default: 'Subscribed'
     },
   },
   { timestamps: true }
