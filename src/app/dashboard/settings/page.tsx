@@ -17,7 +17,7 @@ const Page = () => {
     
   };
   return (
-    <div className='flex w-full flex-col'>
+    <div className='flex w-full flex-col my-12'>
       <Tabs aria-label='Options'>
         <Tab key='api-keys' title='API keys'>
           <Card>
