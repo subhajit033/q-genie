@@ -10,11 +10,9 @@ const Page = () => {
   const [apiKey, setApiKey] = useState('Api key will be here...');
 
   const handleCopy = () => {
-    
-      navigator.clipboard.writeText(apiKey).then(() => {
-        toast.success("Copied");
-      });
-    
+    navigator.clipboard.writeText(apiKey).then(() => {
+      toast.success('Copied');
+    });
   };
   return (
     <div className='flex w-full flex-col my-12'>
@@ -33,7 +31,12 @@ const Page = () => {
                   className='w-full copy-text'
                 />
                 <div className='flex items-center justify-between my-6'>
-                  <Button onClick={handleCopy} color='secondary' size='sm' variant='bordered'>
+                  <Button
+                    onClick={handleCopy}
+                    color='secondary'
+                    size='sm'
+                    variant='bordered'
+                  >
                     Copy API key
                   </Button>
                   <div className='flex items-center gap-5'>

@@ -13,7 +13,7 @@ const Branding = () => {
           NOW POWERING THE WORLD&apos;S TOP NEWSLETTERS
         </h3>
       </div>
-      <Marquee className="w-full flex justify-around">
+      {/* <Marquee className="w-full flex justify-around">
         {partners.map((i: PartnersTypes, index: number) => (
           <>
             <Image
@@ -26,7 +26,8 @@ const Branding = () => {
             />
           </>
         ))}
-      </Marquee>
+      </Marquee> */}
+      <Image src='/email-footer.webp' alt="footer" height={400} width={320} />
     </div>
   );
 };

@@ -67,6 +67,7 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
       unlayer?.exportHtml(async (data) => {
         //here design is the josn data and html is the actual html content
         const { design, html } = data;
+        console.log(design);
         await saveEmail({
           title: subjectTitle,
           content: JSON.stringify(design),
