@@ -48,10 +48,13 @@ export const DefaultJsonData = {
                 values: {
                   containerPadding: '10px',
                   anchor: '',
+                  display: 'none',
                   src: {
                     url: 'https://q-genie.vercel.app/_next/image?url=%2Femail-footer.webp&w=384&q=75',
-                    width: 786,
-                    height: 250,
+                    width: 384,
+                    height: 122,
+                    autoWidth: false,
+                    maxWidth: '0%',
                   },
                   textAlign: 'center',
                   altText: '',
