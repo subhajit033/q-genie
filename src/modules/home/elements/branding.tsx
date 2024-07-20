@@ -27,7 +27,7 @@ const Branding = () => {
           </>
         ))}
       </Marquee> */}
-      <Image src='/email-footer.webp' alt="footer" height={400} width={320} />
+      {/* <Image src='/email-footer.webp' alt="footer" height={400} width={320} /> */}
     </div>
   );
 };

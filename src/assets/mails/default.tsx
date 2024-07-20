@@ -49,7 +49,7 @@ export const DefaultJsonData = {
                   containerPadding: '10px',
                   anchor: '',
                   src: {
-                    url: 'https://www.mdirector.com/wp-content/uploads/2022/04/email-footer.png',
+                    url: 'https://q-genie.vercel.app/_next/image?url=%2Femail-footer.webp&w=384&q=75',
                     width: 786,
                     height: 250,
                   },
