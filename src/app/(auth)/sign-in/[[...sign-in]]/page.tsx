@@ -2,7 +2,7 @@ import { SignIn } from '@clerk/nextjs';
 import { type Metadata } from 'next';
 import React from 'react';
 export const metadata: Metadata = {
-  title: 'BuzzLetter | SignIn',
+  title: 'Login | BuzzLetter',
 };
 
 const page = () => {

@@ -5,6 +5,11 @@ import { UserProfile } from '@clerk/nextjs';
 import { generateApiKey, regenerateApiKey } from '@/shared/utils/token';
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
+import {type Metadata } from "next";
+
+// export const metadata:Metadata = {
+//   title: 'Setting | Dashboard'
+// }
 
 const Page = () => {
   const [apiKey, setApiKey] = useState('Api key will be here...');

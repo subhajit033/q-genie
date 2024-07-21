@@ -1,5 +1,10 @@
-'use clent'
+
 import SubscribersData from "@/shared/components/dashboard/data/subscribers.data";
+import {type Metadata } from "next";
+
+export const metadata:Metadata = {
+  title: 'audience | Dashboard'
+}
 
 const Page = () => {
   return (
