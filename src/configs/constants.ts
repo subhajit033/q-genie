@@ -36,10 +36,10 @@ export const partners: PartnersTypes[] = [
 
 export const freePlan: PlanType[] = [
   {
-    title: "Up to 2,500 subscribers",
+    title: "Up to 500 subscribers",
   },
   {
-    title: "Unlimited sends",
+    title: "Unlimited sends for lifetime",
   },
   {
     title: "Custom newsletter",
@@ -51,7 +51,7 @@ export const freePlan: PlanType[] = [
 
 export const GrowPlan: PlanType[] = [
   {
-    title: "Up to 10,000 subscribers",
+    title: "Up to 5000 subscribers",
   },
   {
     title: "Custom domains",
