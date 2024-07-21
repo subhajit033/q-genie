@@ -4,6 +4,12 @@ import { addTracking } from '@/actions/add.tracking';
 export const GET = async (req: NextRequest) => {
   const searchParams = req.nextUrl.searchParams;
   const query = searchParams.get('userId');
+  if(!query){
+    return NextResponse.json({
+      status: false,
+      message: 'No user found..'
+    }, {status: 404})
+  }
   console.log(query);
   try {
     await addTracking(query as string);

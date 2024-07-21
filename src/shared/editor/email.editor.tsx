@@ -96,7 +96,7 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
       } else {
         setJsonData(
           produce((draft: any) => {
-            draft.body.rows[0].columns[0].contents[1].values.src.url = `http://localhost:3000/api/track/open?userId=${user?.id}`;
+            draft.body.rows[0].columns[0].contents[1].values.src.url = `https://q-genie.vercel.app/api/track/open?userId=${user?.id}`;
           })
         );
         setIsLoading(false);
