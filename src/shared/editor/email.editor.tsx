@@ -22,7 +22,7 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
   const emailEditorRef = useRef<EditorRef>(null);
   const router = useRouter();
   const { data, loading } = useSubscribersData();
-  console.log(jsonData);
+  // console.log(jsonData);
 
   useEffect(() => {
     user && emailDetails();
@@ -38,11 +38,12 @@ const Emaileditor = ({ subjectTitle }: { subjectTitle: string }) => {
       toast(
         'Sending email in bulk will take some time.\n\nPlease stay in the untill you get any confirmation.',
         {
-          duration: 3000,
+          duration: 6000,
         }
       );
 
       try {
+        await saveDraft();
         setIsSending(true);
         await sendBulkEmails(data, subjectTitle, html);
         setIsSending(false);

@@ -9,12 +9,12 @@ const DashboardOverviewCard = () => {
   const {loading, subscribersData} = useSubscribersAnalytics();
   const {data, countLoading} = useGetTrackDetails();
   console.log(data);
-  const lastMonthCount = !countLoading && data?.lastSixMonths?.[data?.lastSixMonths?.length - 1].count;
+  const lastMonthCount = !countLoading && data?._doc?.count;
   //AAs it is a hook so initially the data is unsefied so checking property on that giving error so when loading is done then only loading perfor operation on data 
   const lastMonthSubs = !loading &&  subscribersData?.lastSixMonths?.[subscribersData?.lastSixMonths?.length - 1].count;
   const previousLastMonthSubscribers =
     !loading &&
-    subscribersData?.lastSixMonths[subscribersData?.lastSixMonths?.length - 2];
+    subscribersData?.lastSixMonths[subscribersData?.lastSixMonths?.length - 2].count;
 
   let comparePercentage = 0;
 
@@ -46,16 +46,13 @@ const DashboardOverviewCard = () => {
           </div>
           {/* Open Rate */}
           <div className="w-[33.33%] border-r p-5 text-lg">
-            <h5 className="text-lg">Open Rate</h5>
+            <h5 className="text-lg">Open count</h5>
             <div className="w-full flex items-center justify-between">
               <span className="font-medium pt-2">{countLoading? <Spinner size='sm' />: lastMonthCount}</span>
-              <div className="h-[30px] flex p-3 items-center bg-[#F3F4F6] rounded-full">
-                <span className="text-xl">-</span>
-                <span className="text-sm pl-1">0%</span>
-              </div>
+             
             </div>
             <small className="block text-sm opacity-[.7] pt-2">
-              from 0 (last 4 weeks)
+              {countLoading? <Spinner size='sm' />: data?.monthName }
             </small>
           </div>
           {/* Click Rate */}

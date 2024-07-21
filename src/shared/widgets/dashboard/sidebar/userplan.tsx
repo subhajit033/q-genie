@@ -34,7 +34,7 @@ const UserPlan = () => {
               : membershipData?.plan === "SCALE"
               ? "10,000"
               : "1,00,000"}{" "}  */}
-            added
+            500 added
           </h6>
         </div>
       );

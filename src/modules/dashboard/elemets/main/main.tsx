@@ -6,10 +6,12 @@ import React, { useState } from 'react';
 import DashboardOverviewCard from '@/shared/components/cards/overviewcard';
 import SubscribersChart from '@/shared/components/charts/subscribercharts';
 import { useUser } from '@clerk/nextjs';
+import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';
 
 const Main = () => {
   const { user } = useUser();
+  const router = useRouter();
   const [copied, setCopied] = useState(false);
   const handleCopyClick = () => {
     const smallText = document.querySelector('.copy-text') as HTMLElement;
@@ -42,7 +44,7 @@ const Main = () => {
         <div className='w-[35%] p-5'>
           {/* create newsletter button */}
           <div className='w-full flex justify-end'>
-            <Button className='bg-black text-white text-lg rounded !px-6'>
+            <Button onClick={()=> router.push('/dashboard/write')} className='bg-black text-white text-lg rounded !px-6'>
               <span className='mr-1 ml-[-5px]'>{ICONS.write}</span>
               Start Writing
             </Button>
@@ -81,8 +83,8 @@ const Main = () => {
           <div className='w-full bg-white border rounded p-5 my-3'>
             <h5 className='font-medium'>Tutorials</h5>
             <p className='text-sm opacity-[.7]'>
-              Learn how to get started on becodemy and utilize all our features,
-              directly from the becodemy team.
+              Learn how to get started on BuzzLetter and utilize all our features,
+              directly from the BuzzLetter team.
             </p>
             <br />
             <Button className='bg-[#FBCFE8] text-[#831743] rounded-lg h-[35px] flex items-center'>
